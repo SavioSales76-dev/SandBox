@@ -1,3 +1,18 @@
+<template>
+  <article
+    class="flex flex-col gap-2 rounded-md border border-forest-200 bg-card p-6"
+    :class="{ 'border-transparent': props.isAccent }"
+    :style="props.isAccent ? { backgroundColor: 'var(--color-accent)' } : undefined"
+  >
+    <p class="font-display text-small tracking-[0.03em]" :class="props.isAccent ? 'text-[var(--color-accent-contrast)]' : 'text-forest-500'">
+      {{ props.label }}
+    </p>
+    <p class="font-display text-h1 leading-none" :class="props.isAccent ? 'text-[var(--color-accent-contrast)]' : 'text-forest-900'">
+      {{ props.value }}
+    </p>
+  </article>
+</template>
+
 <script setup>
 defineOptions({
   name: 'DashboardKpiCard',
@@ -18,46 +33,3 @@ const props = defineProps({
   },
 })
 </script>
-
-<template>
-  <article class="kpi-card" :class="{ 'kpi-card-accent': props.isAccent }">
-    <p class="kpi-label">{{ props.label }}</p>
-    <p class="kpi-value">{{ props.value }}</p>
-  </article>
-</template>
-
-<style scoped>
-.kpi-card {
-  border-radius: var(--radius-md);
-  border: 1px solid var(--forest-200);
-  background: #fff;
-  padding: var(--sp-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-}
-
-.kpi-card-accent {
-  background: var(--color-accent);
-  border-color: transparent;
-}
-
-.kpi-label {
-  color: var(--forest-500);
-  font-size: var(--text-small);
-  font-family: var(--font-display);
-  letter-spacing: 0.03em;
-}
-
-.kpi-value {
-  color: var(--forest-900);
-  font-family: var(--font-display);
-  font-size: var(--text-h1);
-  line-height: 1;
-}
-
-.kpi-card-accent .kpi-label,
-.kpi-card-accent .kpi-value {
-  color: var(--forest-900);
-}
-</style>

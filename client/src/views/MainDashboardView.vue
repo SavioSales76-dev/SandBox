@@ -1,39 +1,66 @@
 <script setup>
 import { ref } from 'vue'
-import { LayoutDashboard, SquareMousePointer } from 'lucide-vue-next'
+import { AppWindow, Command } from 'lucide-vue-next'
 
+import CategoryBarChart from '@/components/dashboard/CategoryBarChart.vue'
 import KpiCard from '@/components/dashboard/KpiCard.vue'
 import Sidebar from '@/components/dashboard/Sidebar.vue'
+import StockTrendChart from '@/components/dashboard/StockTrendChart.vue'
 
 const menuItems = [
-  { id: 'dashboard', label: 'Dasboard', icon: LayoutDashboard },
-  { id: 'buttons', label: 'Buttons', icon: SquareMousePointer },
+  { id: 'dashboard', label: 'Dasboard', icon: AppWindow },
+  { id: 'buttons', label: 'Buttons', icon: Command },
 ]
 
 const kpiItems = [
-  { id: 'buttons', label: 'Buttons', value: 0 },
-  { id: 'cards', label: 'Cards', value: 0, isAccent: true },
-  { id: 'sections', label: 'Sections', value: 0 },
+  { id: 'buttons', label: 'Buttons', value: 12 },
+  { id: 'cards', label: 'Cards', value: 8, isAccent: true },
+  { id: 'sections', label: 'Sections', value: 5 },
   { id: 'kpi-cards', label: 'KPI Cards', value: 4 },
+]
+
+const incomeSeries = [
+  { month: 'Jan', profit: 16, loss: 12 },
+  { month: 'Feb', profit: 22, loss: 9 },
+  { month: 'Mar', profit: 18, loss: 8 },
+  { month: 'Apr', profit: 14, loss: 12 },
+  { month: 'May', profit: 21, loss: 10 },
+  { month: 'Jun', profit: 25, loss: 15 },
+  { month: 'Jul', profit: 16, loss: 13 },
+  { month: 'Aug', profit: 12, loss: 8 },
+]
+
+const marketTrendSeries = [
+  { label: 'Jan', value: 42 },
+  { label: 'Feb', value: 39 },
+  { label: 'Mar', value: 45 },
+  { label: 'Apr', value: 47 },
+  { label: 'May', value: 44 },
+  { label: 'Jun', value: 52 },
+  { label: 'Jul', value: 49 },
+  { label: 'Aug', value: 56 },
 ]
 
 const activeTab = ref('dashboard')
 </script>
 
 <template>
-  <div class="dashboard-layout">
+  <div class="flex h-screen overflow-hidden bg-surface max-[960px]:flex-col">
     <Sidebar :items="menuItems" :active-item="activeTab" @select="activeTab = $event" />
 
-    <main class="dashboard-main">
-      <section v-if="activeTab === 'dashboard'" class="hero-card">
+    <main class="flex min-h-0 flex-1 items-stretch overflow-hidden p-6 max-[960px]:w-full">
+      <section
+        v-if="activeTab === 'dashboard'"
+        class="tab-content-scroll flex h-full w-full flex-col gap-6 overflow-y-auto rounded-lg bg-card p-8 overscroll-contain"
+      >
         <p class="caption">Aba inicial</p>
-        <h1>Visao geral</h1>
-        <p class="hero-text">
+        <h1 class="text-h1 leading-[1.05]">Visao geral</h1>
+        <p class="max-w-[60ch] text-small text-forest-700">
           Esta e a area inicial do painel. Aqui vamos concentrar os cards e indicadores
           principais do projeto.
         </p>
 
-        <div class="kpi-grid">
+        <div class="grid grid-cols-4 gap-4 max-[960px]:grid-cols-1">
           <KpiCard
             v-for="item in kpiItems"
             :key="item.id"
@@ -42,84 +69,21 @@ const activeTab = ref('dashboard')
             :is-accent="item.isAccent"
           />
         </div>
+
+        <div class="grid grid-cols-4 items-stretch gap-4 max-[960px]:grid-cols-1">
+          <div class="col-span-2 h-full max-[960px]:col-span-1">
+            <CategoryBarChart :data="incomeSeries" />
+          </div>
+          <div class="col-span-2 h-full max-[960px]:col-span-1">
+            <StockTrendChart :data="marketTrendSeries" />
+          </div>
+        </div>
       </section>
 
-      <section v-else class="placeholder-card">
+      <section v-else class="tab-content-scroll flex h-full w-full flex-col gap-6 overflow-y-auto rounded-lg bg-card p-8 overscroll-contain">
         <h3>Em breve</h3>
         <p>A aba Buttons sera implementada na sequencia.</p>
       </section>
     </main>
   </div>
 </template>
-
-<style scoped>
-.dashboard-layout {
-  height: 100vh;
-  display: flex;
-  background: var(--color-surface);
-  overflow: hidden;
-}
-
-.dashboard-main {
-  flex: 1;
-  padding: var(--sp-4);
-  display: flex;
-  align-items: stretch;
-  min-height: 0;
-  overflow: hidden;
-}
-
-.hero-card,
-.placeholder-card {
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  border: none;
-  border-radius: var(--radius-lg);
-  padding: var(--sp-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-4);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-
-.hero-card h1 {
-  font-size: var(--text-h1);
-  line-height: 1.05;
-}
-
-.hero-text {
-  max-width: 60ch;
-  color: var(--forest-700);
-  font-size: var(--text-small);
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--sp-3);
-}
-
-@media (max-width: 960px) {
-  .dashboard-layout {
-    height: auto;
-    min-height: 100vh;
-    flex-direction: column;
-    overflow: visible;
-  }
-
-  .dashboard-main {
-    padding: var(--sp-4);
-    overflow: visible;
-  }
-
-  .hero-card h1 {
-    font-size: var(--text-h1);
-  }
-
-  .kpi-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

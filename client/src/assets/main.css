@@ -2,21 +2,66 @@
 @import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap");
 @import "tailwindcss";
 
+@theme {
+  --color-surface: var(--color-surface);
+  --color-dark: var(--color-dark);
+  --color-accent: var(--color-accent);
+  --color-card: var(--color-card);
+
+  --color-forest-50: var(--forest-50);
+  --color-forest-100: var(--forest-100);
+  --color-forest-200: var(--forest-200);
+  --color-forest-300: var(--forest-300);
+  --color-forest-400: var(--forest-400);
+  --color-forest-500: var(--forest-500);
+  --color-forest-600: var(--forest-600);
+  --color-forest-700: var(--forest-700);
+  --color-forest-800: var(--forest-800);
+  --color-forest-900: var(--forest-900);
+
+  --color-lime-100: var(--lime-100);
+  --color-lime-200: var(--lime-200);
+  --color-lime-300: var(--lime-300);
+  --color-lime-400: var(--lime-400);
+  --color-lime-500: var(--lime-500);
+  --color-lime-700: var(--lime-700);
+
+  --font-display: "Clash Display", "DM Sans", Arial, sans-serif;
+  --font-body: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --text-display: 48px;
+  --text-h1: 32px;
+  --text-h2: 24px;
+  --text-h3: 20px;
+  --text-body: 16px;
+  --text-small: 14px;
+  --text-caption: 12px;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+}
+
 :root {
   --color-surface: #eaf3ed;
-  --color-dark: #010e05;
+  --color-dark: #121212;
   --color-accent: #b8ff47;
+  --color-accent-soft: color-mix(in srgb, var(--color-accent) 85%, #ffffff);
+  --color-accent-contrast: #121212;
+  --color-card: #ffffff;
 
-  --forest-50: #eaf3ed;
-  --forest-100: #c8dcce;
-  --forest-200: #a5c4ad;
-  --forest-300: #7ea98a;
-  --forest-400: #5a8a61;
-  --forest-500: #3d6b45;
-  --forest-600: #284d2f;
-  --forest-700: #17321c;
-  --forest-800: #0b1d10;
-  --forest-900: #010e05;
+  --forest-50: #f2f2f2;
+  --forest-100: #dddddd;
+  --forest-200: #c4c4c4;
+  --forest-300: #a6a6a6;
+  --forest-400: #828282;
+  --forest-500: #5f5f5f;
+  --forest-600: #3f3f3f;
+  --forest-700: #2c2c2c;
+  --forest-800: #1d1d1d;
+  --forest-900: #121212;
 
   --lime-100: #efffd6;
   --lime-200: #d4ff8e;
@@ -53,6 +98,26 @@
   --text-body: 16px;
   --text-small: 14px;
   --text-caption: 12px;
+}
+
+html.dark {
+  --color-surface: #0f0f10;
+  --color-dark: #f3f3f3;
+  --color-card: #171718;
+  --color-accent: #b8ff47;
+  --color-accent-soft: color-mix(in srgb, var(--color-accent) 82%, #ffffff);
+  --color-accent-contrast: #121212;
+
+  --forest-50: #1b1b1b;
+  --forest-100: #262626;
+  --forest-200: #323232;
+  --forest-300: #4b4b4b;
+  --forest-400: #696969;
+  --forest-500: #9d9d9d;
+  --forest-600: #c0c0c0;
+  --forest-700: #d4d4d4;
+  --forest-800: #e4e4e4;
+  --forest-900: #f3f3f3;
 }
 
 *,
@@ -106,4 +171,29 @@ small {
 
 .caption {
   font-size: var(--text-caption);
+}
+
+.tab-content-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--forest-300) transparent;
+}
+
+.tab-content-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.tab-content-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tab-content-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--forest-300) 90%, transparent);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.tab-content-scroll::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--color-accent) 42%, var(--forest-400));
+  background-clip: content-box;
 }
