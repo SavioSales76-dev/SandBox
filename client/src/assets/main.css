@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --color-surface: #eaf3ed;
+  --color-dark: #010e05;
+  --color-accent: #b8ff47;
+
+  --forest-50: #eaf3ed;
+  --forest-100: #c8dcce;
+  --forest-200: #a5c4ad;
+  --forest-300: #7ea98a;
+  --forest-400: #5a8a61;
+  --forest-500: #3d6b45;
+  --forest-600: #284d2f;
+  --forest-700: #17321c;
+  --forest-800: #0b1d10;
+  --forest-900: #010e05;
+
+  --lime-100: #efffd6;
+  --lime-200: #d4ff8e;
+  --lime-300: #b8ff47;
+  --lime-400: #8dc929;
+  --lime-500: #5e880c;
+  --lime-700: #2a4500;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 16px;
+  --sp-4: 24px;
+  --sp-5: 32px;
+  --sp-6: 48px;
+  --sp-7: 64px;
+  --sp-8: 96px;
+  --sp-9: 128px;
+
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  --font-display: "Clash Display", "DM Sans", Arial, sans-serif;
+  --font-body: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --text-display: 48px;
+  --text-h1: 32px;
+  --text-h2: 24px;
+  --text-h3: 20px;
+  --text-body: 16px;
+  --text-small: 14px;
+  --text-caption: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface);
+  color: var(--color-dark);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--color-dark);
+}
+
+h1 {
+  font-size: var(--text-h1);
+}
+
+h2 {
+  font-size: var(--text-h2);
+}
+
+h3 {
+  font-size: var(--text-h3);
+}
+
+p {
+  margin: 0;
+}
+
+small {
+  font-size: var(--text-small);
+}
+
+.caption {
+  font-size: var(--text-caption);
+}
