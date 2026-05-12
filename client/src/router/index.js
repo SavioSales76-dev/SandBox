@@ -1,13 +1,44 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainDashboardView from '../views/MainDashboardView.vue'
+import AppDashboardView from '../views/AppDashboardView.vue'
+import AppDashboardButtonsView from '../views/AppDashboardButtonsView.vue'
+import AppDashboardCardsView from '../views/AppDashboardCardsView.vue'
+import AppDashboardChartsView from '../views/AppDashboardChartsView.vue'
+import AppDashboardHomeView from '../views/AppDashboardHomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'dashboard',
-      component: MainDashboardView,
+      redirect: '/app/dashboard',
+    },
+    {
+      path: '/app',
+      name: 'app',
+      component: AppDashboardView,
+      redirect: { name: 'app-dashboard-home' },
+      children: [
+        {
+          path: 'dashboard',
+          name: 'app-dashboard-home',
+          component: AppDashboardHomeView,
+        },
+        {
+          path: 'charts',
+          name: 'app-dashboard-charts',
+          component: AppDashboardChartsView,
+        },
+        {
+          path: 'cards',
+          name: 'app-dashboard-cards',
+          component: AppDashboardCardsView,
+        },
+        {
+          path: 'buttons',
+          name: 'app-dashboard-buttons',
+          component: AppDashboardButtonsView,
+        },
+      ],
     },
   ],
 })
