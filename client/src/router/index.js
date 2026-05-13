@@ -3,6 +3,7 @@ import AppDashboardView from '../views/AppDashboardView.vue'
 import AppDashboardButtonsView from '../views/AppDashboardButtonsView.vue'
 import AppDashboardCardsView from '../views/AppDashboardCardsView.vue'
 import AppDashboardChartsView from '../views/AppDashboardChartsView.vue'
+import AppDashboardComponentCodeView from '../views/AppDashboardComponentCodeView.vue'
 import AppDashboardHomeView from '../views/AppDashboardHomeView.vue'
 
 const router = createRouter({
@@ -37,6 +38,11 @@ const router = createRouter({
           path: 'buttons',
           name: 'app-dashboard-buttons',
           component: AppDashboardButtonsView,
+        },
+        {
+          path: 'component-code/:componentId',
+          name: 'app-dashboard-component-code',
+          component: AppDashboardComponentCodeView,
         },
       ],
     },

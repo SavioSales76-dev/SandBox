@@ -1,9 +1,12 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import CategoryBarChart from '@/components/dashboard/CategoryBarChart.vue'
+import ComponentCell from '@/components/dashboard/ComponentCell.vue'
 import StockTrendChart from '@/components/dashboard/StockTrendChart.vue'
 
+const router = useRouter()
 const categoryChartCodeViews = ref(0)
 const trendChartCodeViews = ref(0)
 
@@ -28,6 +31,22 @@ const marketTrendSeries = [
   { label: 'Jul', value: 49 },
   { label: 'Aug', value: 56 },
 ]
+
+function openComponentCode(componentId) {
+  if (componentId === 'category-bar-chart') {
+    categoryChartCodeViews.value += 1
+  }
+
+  if (componentId === 'stock-trend-chart') {
+    trendChartCodeViews.value += 1
+  }
+
+  router.push({
+    name: 'app-dashboard-component-code',
+    params: { componentId },
+    query: { from: 'app-dashboard-charts' },
+  })
+}
 </script>
 
 <template>
@@ -40,49 +59,29 @@ const marketTrendSeries = [
 
     <div class="rounded-md bg-card">
       <div class="grid auto-rows-fr grid-cols-4 gap-6 max-[1100px]:grid-cols-1">
-        <div class="col-span-2 flex h-full flex-col gap-3">
-          <div class="relative flex h-90 items-center justify-center rounded-lg bg-[#121212] p-4">
+        <ComponentCell
+          class="col-span-2"
+          title="Category Bar Chart"
+          :views="categoryChartCodeViews"
+          preview-class="h-90"
+          @get-code="openComponentCode('category-bar-chart')"
+        >
+          <template #default>
             <CategoryBarChart :data="incomeSeries" />
-          </div>
-          <div class="flex items-center justify-between px-1">
-            <p class="font-display text-small font-medium tracking-[0.06em] text-forest-600">
-              Category Bar Chart
-            </p>
-            <div class="flex items-center gap-3">
-              <p class="font-body text-small font-medium text-forest-500">
-                Views: {{ categoryChartCodeViews }}
-              </p>
-              <button
-                type="button"
-                class="inline-flex items-center rounded-full border-2 border-forest-300 px-3 py-1 font-display text-caption font-medium tracking-[0.06em] text-forest-700 transition-colors hover:border-forest-500 hover:text-forest-900"
-              >
-                Get Code
-              </button>
-            </div>
-          </div>
-        </div>
+          </template>
+        </ComponentCell>
 
-        <div class="col-span-2 flex h-full flex-col gap-3">
-          <div class="relative flex h-90 items-center justify-center rounded-lg bg-[#121212] p-4">
+        <ComponentCell
+          class="col-span-2"
+          title="Stock Trend Chart"
+          :views="trendChartCodeViews"
+          preview-class="h-90"
+          @get-code="openComponentCode('stock-trend-chart')"
+        >
+          <template #default>
             <StockTrendChart :data="marketTrendSeries" />
-          </div>
-          <div class="flex items-center justify-between px-1">
-            <p class="font-display text-small font-medium tracking-[0.06em] text-forest-600">
-              Stock Trend Chart
-            </p>
-            <div class="flex items-center gap-3">
-              <p class="font-body text-small font-medium text-forest-500">
-                Views: {{ trendChartCodeViews }}
-              </p>
-              <button
-                type="button"
-                class="inline-flex items-center rounded-full border-2 border-forest-300 px-3 py-1 font-display text-caption font-medium tracking-[0.06em] text-forest-700 transition-colors hover:border-forest-500 hover:text-forest-900"
-              >
-                Get Code
-              </button>
-            </div>
-          </div>
-        </div>
+          </template>
+        </ComponentCell>
       </div>
     </div>
   </section>

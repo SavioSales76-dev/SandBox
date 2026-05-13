@@ -1,9 +1,21 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+import ComponentCell from '@/components/dashboard/ComponentCell.vue'
 import KpiCard from '@/components/dashboard/KpiCard.vue'
 
+const router = useRouter()
 const kpiCardCodeViews = ref(0)
+
+function openComponentCode() {
+  kpiCardCodeViews.value += 1
+  router.push({
+    name: 'app-dashboard-component-code',
+    params: { componentId: 'kpi-card' },
+    query: { from: 'app-dashboard-cards' },
+  })
+}
 </script>
 
 <template>
@@ -16,27 +28,11 @@ const kpiCardCodeViews = ref(0)
 
     <div class="rounded-md bg-card">
       <div class="grid grid-cols-3 gap-6 max-[1100px]:grid-cols-2 max-[720px]:grid-cols-1">
-        <div class="flex flex-col gap-3">
-          <div class="relative flex min-h-45 items-center justify-center rounded-lg bg-[#121212] p-4">
+        <ComponentCell title="KPI Card" :views="kpiCardCodeViews" @get-code="openComponentCode">
+          <template #default>
             <KpiCard class="w-full max-w-90" label="KPI Card" :value="8" is-accent />
-          </div>
-          <div class="flex items-center justify-between px-1">
-            <p class="font-display text-small font-medium tracking-[0.06em] text-forest-600">
-              KPI Card
-            </p>
-            <div class="flex items-center gap-3">
-              <p class="font-body text-small font-medium text-forest-500">
-                Views: {{ kpiCardCodeViews }}
-              </p>
-              <button
-                type="button"
-                class="inline-flex items-center rounded-full border-2 border-forest-300 px-3 py-1 font-display text-caption font-medium tracking-[0.06em] text-forest-700 transition-colors hover:border-forest-500 hover:text-forest-900"
-              >
-                Get Code
-              </button>
-            </div>
-          </div>
-        </div>
+          </template>
+        </ComponentCell>
       </div>
     </div>
   </section>

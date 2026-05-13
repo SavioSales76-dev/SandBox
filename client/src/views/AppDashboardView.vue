@@ -20,6 +20,12 @@ const menuItems = [
 ]
 
 const activeItem = computed(() => {
+  if (route.name === 'app-dashboard-component-code') {
+    const fromRoute = typeof route.query.from === 'string' ? route.query.from : 'app-dashboard-home'
+    const source = menuItems.find((item) => item.routeName === fromRoute)
+    return source?.id || 'dashboard'
+  }
+
   const current = menuItems.find((item) => item.routeName === route.name)
   return current?.id || 'dashboard'
 })
